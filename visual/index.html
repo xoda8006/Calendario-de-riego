@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orquidia</title>
+    <title>Panel de Control de Riego Automatizado | Orquidia</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        h1 { color: #585858; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        h2 { margin-top: 0; color: #4CAF50; }
+        form { background: #f9f9f9; padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 30px; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%; padding: 8px; margin: 5px 0 15px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+        }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #e0e0e0; }
+    </style>
 </head>
 <body>
-    <h1> </h1>
+
+    <h1>Orquidia</h1>
+    <h2>Panel de Control de Riego Automatizado</h2>
+
+    <form action="/agregar_orquidea" method="POST">
+        <h3>Registro de Orquídea</h3>
+        
+        <label for="nombre">Nombre de la orquídea:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Phalaenopsis, Cattleya..." required>
+        
+        <label for="ultima_fecha">Última fecha de riego:</label>
+        <input type="date" id="ultima_fecha" name="ultima_fecha" placeholder="dd/mm/aaaa">
+        
+        <label for="frecuencia">Frecuencia de riego (días):</label>
+        <input type="number" id="frecuencia" name="frecuencia" placeholder="Ej: 7" min="1" required>
+        
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" name="observaciones" rows="3" placeholder="Notas sobre el estado, fertilizante, etc."></textarea>
+
+        <button type="submit">agregar</button>
+    </form>
+
+    <hr>
+
+    <div id="lista_orquideas">
+        <h3>Orquídeas Registradas</h3>
+        <p>Cargando datos...</p>
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
