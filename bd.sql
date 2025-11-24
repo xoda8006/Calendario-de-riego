@@ -1,6 +1,6 @@
 
-CREATE DATABASE IF NOT EXISTS OrquideasDB;
-USE OrquideasDB;
+CREATE DATABASE IF NOT EXISTS orquideasdb;
+USE orquideasdb;
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -16,15 +16,26 @@ CREATE TABLE sensores (
 );
 
 
-DROP TABLE IF EXISTS calendario_riego;
-
 CREATE TABLE calendario_riego (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    ultima_fecha DATE,
-    frecuencia INT,
+    diaSemana VARCHAR(20) NOT NULL,
+    horaRiego TIME NOT NULL,
+    fecha DATETIME
+);
+
+DROP TABLE IF EXISTS orquideas;
+
+CREATE TABLE orquideas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    especie VARCHAR(100),
+    fecha_adquisicion DATE,
+    ubicacion VARCHAR(100),
     observaciones TEXT
 );
+
+
+
 
 
 CREATE TABLE registro_ambiental (
@@ -42,3 +53,4 @@ CREATE TABLE notificaciones (
 INSERT INTO usuarios (nombre, email) VALUES
 ('Ana Torres', 'ana@correo.com'),
 ('Seba', 'Seba@correo.com');
+
