@@ -1,17 +1,15 @@
 // visual/script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Al cargar la página, se llama a la función principal para obtener y mostrar los datos.
     fetchOrquideas();
 });
 
-// Función que se comunica con el servidor para obtener los datos
 async function fetchOrquideas() {
     const listaDiv = document.getElementById('lista_orquideas');
     listaDiv.innerHTML = '<h3>Cargando Orquídeas...</h3>'; 
 
     try {
-        // Llama a la ruta GET que creaste en http.js
+      
         const response = await fetch('/api/orquideas');
         
         if (!response.ok) {
@@ -21,7 +19,7 @@ async function fetchOrquideas() {
         
         const orquideas = await response.json();
         
-        // Pasa los datos a la función de renderizado
+        
         renderOrquideas(orquideas, listaDiv); 
 
     } catch (error) {

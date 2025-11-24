@@ -4,9 +4,9 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import db from './config.js'; // Conexión a la BD
+import db from './config.js'; 
 
-const PORT = 3006; 
+const PORT = 3306; 
 const HOST = '127.0.0.1';
 
 // Definición de rutas para encontrar archivos
