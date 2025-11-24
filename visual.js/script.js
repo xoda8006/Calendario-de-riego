@@ -1,17 +1,15 @@
 // visual/script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Al cargar la página, se llama a la función principal para obtener y mostrar los datos.
     fetchOrquideas();
 });
 
-// Función que se comunica con el servidor para obtener los datos
 async function fetchOrquideas() {
     const listaDiv = document.getElementById('lista_orquideas');
     listaDiv.innerHTML = '<h3>Cargando Orquídeas...</h3>'; 
 
     try {
-        // Llama a la ruta GET que creaste en http.js
+      
         const response = await fetch('/api/orquideas');
         
         if (!response.ok) {
@@ -21,7 +19,7 @@ async function fetchOrquideas() {
         
         const orquideas = await response.json();
         
-        // Pasa los datos a la función de renderizado
+        
         renderOrquideas(orquideas, listaDiv); 
 
     } catch (error) {
@@ -31,7 +29,7 @@ async function fetchOrquideas() {
     }
 }
 
-// Función que construye la estructura de la tabla HTML
+
 function renderOrquideas(orquideas, container) {
     if (orquideas.length === 0) {
         container.innerHTML = '<h3>Orquídeas Registradas</h3><p>Aún no hay orquídeas en el sistema.</p>';
@@ -40,12 +38,12 @@ function renderOrquideas(orquideas, container) {
 
     let html = '<h3>Orquídeas Registradas</h3>';
     
-    // Construcción de la tabla
+   
     html += '<table border="1" style="width: 100%; border-collapse: collapse; margin-top: 15px;">';
     html += '<thead><tr><th>Nombre</th><th>Último Riego</th><th>Frecuencia (Días)</th><th>Observaciones</th></tr></thead><tbody>';
 
     orquideas.forEach(orquidea => {
-        // Formatea la fecha
+      
         const fechaRiego = orquidea.ultima_fecha ? new Date(orquidea.ultima_fecha).toLocaleDateString('es-CL') : 'N/A';
         
         html += `
