@@ -15,12 +15,17 @@ CREATE TABLE sensores (
     estado VARCHAR(20) NOT NULL
 );
 
+
+DROP TABLE IF EXISTS calendario_riego;
+
 CREATE TABLE calendario_riego (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    diaSemana VARCHAR(20) NOT NULL,
-    horaRiego TIME NOT NULL,
-    fecha DATETIME
+    nombre VARCHAR(50) NOT NULL,
+    ultima_fecha DATE,
+    frecuencia INT,
+    observaciones TEXT
 );
+
 
 CREATE TABLE registro_ambiental (
     id INT AUTO_INCREMENT PRIMARY KEY,

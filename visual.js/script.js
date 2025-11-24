@@ -29,36 +29,103 @@ async function fetchOrquideas() {
         // Muestra el error de forma visual en la interfaz
         listaDiv.innerHTML = `<p style="color: red;">⚠️ Error al obtener datos del servidor: ${error.message}</p>`;
     }
+
 }
 
-// Función que construye la estructura de la tabla HTML
-function renderOrquideas(orquideas, container) {
-    if (orquideas.length === 0) {
-        container.innerHTML = '<h3>Orquídeas Registradas</h3><p>Aún no hay orquídeas en el sistema.</p>';
+
+
+// ===============================
+// POST → Agregar nueva orquídea
+// ===============================
+async function agregarOrquidea() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const frecuencia = document.getElementById('frecuencia').value.trim();
+    const observaciones = document.getElementById('observaciones').value.trim();
+
+    // Validación simple
+    if (!nombre || !frecuencia) {
+        alert("Nombre y frecuencia son obligatorios.");
         return;
     }
 
-    let html = '<h3>Orquídeas Registradas</h3>';
-    
-    // Construcción de la tabla
-    html += '<table border="1" style="width: 100%; border-collapse: collapse; margin-top: 15px;">';
-    html += '<thead><tr><th>Nombre</th><th>Último Riego</th><th>Frecuencia (Días)</th><th>Observaciones</th></tr></thead><tbody>';
+    // Crear objeto para enviar
+    const nuevaOrquidea = {
+        nombre,
+        frecuencia,
+        observaciones
+    };
 
-    orquideas.forEach(orquidea => {
-        // Formatea la fecha
-        const fechaRiego = orquidea.ultima_fecha ? new Date(orquidea.ultima_fecha).toLocaleDateString('es-CL') : 'N/A';
-        
-        html += `
+    try {
+        const response = await fetch('/api/orquideas', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevaOrquidea)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al guardar: ${response.status}`);
+        }
+
+        // Limpiar formulario
+        document.getElementById('nombre').value = "";
+        document.getElementById('frecuencia').value = "";
+        document.getElementById('observaciones').value = "";
+
+        // Recargar tabla sin recargar la página
+        fetchOrquideas();
+
+        alert("Orquídea agregada correctamente.");
+
+    } catch (error) {
+        alert("No se pudo agregar: " + error.message);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Función que construye la estructura de la tabla HTML
+function renderOrquideas(orquideas) {
+
+    const tbody = document.querySelector("#excelTable tbody");
+
+    // Si no hay datos
+    if (!orquideas || orquideas.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='6'>Aún no hay orquídeas registradas.</td></tr>";
+        return;
+    }
+
+    let filasHTML = "";
+
+    orquideas.forEach(o => {
+        const fechaRiego = o.ultima_fecha
+            ? new Date(o.ultima_fecha).toLocaleDateString("es-CL")
+            : "N/A";
+
+        filasHTML += `
             <tr>
-                <td>${orquidea.nombre}</td>
+                <td>${o.id}</td>
+                <td>${o.nombre}</td>
                 <td>${fechaRiego}</td>
-                <td>${orquidea.frecuencia}</td>
-                <td>${orquidea.observaciones || ''}</td>
+                <td>${o.frecuencia}</td>
+                <td>${o.observaciones || ""}</td>
+                <td>${o.creado_en || ""}</td>
             </tr>
         `;
     });
-    
-    html += '</tbody></table>';
-    
-    container.innerHTML = html; // Muestra la tabla en el div
+
+    // Insertar filas en la tabla
+    tbody.innerHTML = filasHTML;
 }

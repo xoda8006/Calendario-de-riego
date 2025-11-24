@@ -46,8 +46,25 @@
     <hr>
 
     <div id="lista_orquideas">
+      <div id="lista_orquideas">
         <h3>Orquídeas Registradas</h3>
-        <p>Cargando datos...</p>
+        <div class="small">La tabla se actualiza automáticamente cuando agregas una nueva orquídea (si usas el botón Guardar).</div>
+        <div id="table_container" style="margin-top:10px;">
+            <table id="excelTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Última Fecha</th>
+                        <th>Frecuencia (días)</th>
+                        <th>Observaciones</th>
+                        <th>Registrado</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
     </div>
 
     <script src="script.js"></script>

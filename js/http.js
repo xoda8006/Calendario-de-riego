@@ -68,7 +68,7 @@ const server = createServer(async (req, res) => {
             const { nombre, ultima_fecha, frecuencia, observaciones } = data;
             
             // Usando el nombre de tabla correcto
-            const query = 'INSERT INTO `calendario-de-riego` (nombre, ultima_fecha, frecuencia, observaciones) VALUES (?, ?, ?, ?)';
+            const query = 'INSERT INTO `calendario_riego` (nombre, ultima_fecha, frecuencia, observaciones) VALUES (?, ?, ?, ?)';
             
             db.query(query, [nombre, ultima_fecha, frecuencia, observaciones], (err, result) => {
                 if (err) {
@@ -92,7 +92,7 @@ const server = createServer(async (req, res) => {
     // 4. RUTA GET: OBTENER LISTA DE ORQUÍDEAS (READ / API)
     if (req.method === 'GET' && pathname === '/api/orquideas') {
         // Usando el nombre de tabla correcto para la consulta
-        const query = 'SELECT * FROM `calendario-de-riego` ORDER BY nombre ASC';
+        const query = 'SELECT * FROM `calendario_riego` ORDER BY nombre ASC';
         
         db.query(query, (err, results) => {
             if (err) {
